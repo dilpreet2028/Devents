@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "969587916242",
+    "project_id": "firebase-devents"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969587916242:android:6751b9f769290824",
+        "android_client_info": {
+          "package_name": "com.dilpreet2028.devents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969587916242-90ip1rdhv018g57eekv6blms2i587tdg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dilpreet2028.devents",
+            "certificate_hash": "A1EFA994BED5850A579675C6D5C5DA7A2F1A1B1F"
+          }
+        },
+        {
+          "client_id": "969587916242-prv9iedfv0ejicg7s0sknjnavjdlcujj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC87bnofj9-smSkiF1sCoK9m6GH-2QyFtY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

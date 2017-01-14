@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">"Devents "</string>
+
+    <string name="gcm_id">969587916242</string>
+    <string name="content_authority">com.dilpreet2028.devents</string>
+
+    <string name="pref_email">email</string>
+    <string name="pref_token">token</string>
+
+</resources>
