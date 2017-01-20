@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "969587916242",
-    "project_id": "firebase-devents"
+    "firebase_url": "https://fir-devents.firebaseio.com",
+    "project_id": "firebase-devents",
+    "storage_bucket": "firebase-devents.appspot.com"
   },
   "client": [
     {
@@ -21,6 +23,10 @@
           }
         },
         {
+          "client_id": "969587916242-0jq5msh796hcurbvofb72d15femd0afa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "969587916242-prv9iedfv0ejicg7s0sknjnavjdlcujj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969587916242-0jq5msh796hcurbvofb72d15femd0afa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

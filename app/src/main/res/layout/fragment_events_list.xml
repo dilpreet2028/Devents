@@ -4,11 +4,9 @@
              android:layout_height="match_parent"
              tools:context=".ui.Fragments.EventsListFragment">
 
-
-    <View
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:id="@+id/view"/>
+        android:id="@+id/events_recycler_view"/>
 
 </FrameLayout>

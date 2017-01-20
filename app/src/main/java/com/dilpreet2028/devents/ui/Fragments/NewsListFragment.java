@@ -53,8 +53,9 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 
 		getLoaderManager().initLoader(NEWS_LOADER,null,this);
 
-		NewsApi newsApi=new NewsApi(getContext());
-		newsApi.getNews();
+
+
+
 
 	}
 

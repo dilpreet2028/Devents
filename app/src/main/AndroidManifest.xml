@@ -2,13 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.dilpreet2028.devents">
 
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="24"/>
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <permission android:name="com.dilpreet2028.devents.permission.C2D_MESSAGE"
-                android:protectionLevel="signature" />
-    <uses-permission android:name="com.dilpreet2028.devents.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="24" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,8 +22,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Activities.MainActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
 
+        <activity android:name=".ui.Activities.MainActivity">
         </activity>
 
         <provider
@@ -34,30 +43,44 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+        <service android:name=".FCMReg.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.example.gcm" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
-        </receiver>
+        </service>
+        <service android:name=".FCMReg.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <service
-            android:name=".GCMReg.MyGcmListenerService"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
+            android:name=".Utils.ClipBoardMonitorService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+        <service
+            android:name=".Utils.CreateEventService"
+            android:enabled="true"
+            android:exported="true">
         </service>
 
+        <activity android:name=".ui.Activities.EventInfoActivity">
+        </activity>
+
         <service
-            android:name=".GCMReg.RegistrationIntentService"
+            android:name=".Utils.NewsIntentService"
             android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
         </service>
+
+        <receiver android:name=".Utils.NewsBroadCastReciever"/>
+        <receiver
+            android:name=".Utils.MyBootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

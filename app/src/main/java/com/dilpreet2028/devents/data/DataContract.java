@@ -14,6 +14,8 @@ public final class DataContract {
 
 	public static final Uri CONTENT_URI=Uri.parse("content://"+CONTENT_AUTHORITY);
 	public static final String PATH_NEWS="news";
+	public static final String PATH_EVENTS="events";
+
 	public static final class NewsItems implements BaseColumns{
 
 		public static final Uri CONTENT_URI=Uri.withAppendedPath(DataContract.CONTENT_URI,"news");
@@ -28,13 +30,6 @@ public final class DataContract {
 		public static final String COLUMN_URL_IMG="url_image";
 		public static final String COLUMN_PUB_AT="pub_at";
 
-		public static final int COLUMN_ID_INT=0;
-		public static final int COLUMN_AUTHOR_INT=2;
-		public static final int COLUMN_TITLE_INT=3;
-		public static final int COLUMN_DESC_INT=4;
-		public static final int COLUMN_URL_INT=5;
-		public static final int COLUMN_URL_IMG_INT=6;
-		public static final int COLUMN_PUB_AT_INT=7;
 
 		public static final String[] PROJECTIONS={
 				TABLE_NAME+"."+_ID,
@@ -45,6 +40,45 @@ public final class DataContract {
 				COLUMN_URL_IMG,
 				COLUMN_PUB_AT
 		};
+
+	}
+
+	public static final class EventsItem implements BaseColumns{
+		public static final Uri CONTENT_URI=Uri.withAppendedPath(DataContract.CONTENT_URI,PATH_EVENTS);
+		public static final String CONTENT_TYPE= ContentResolver.CURSOR_DIR_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_EVENTS;
+		public static final String CONTENT_ITEM_TYPE= ContentResolver.CURSOR_ITEM_BASE_TYPE+"/"+CONTENT_AUTHORITY+"/"+PATH_EVENTS;
+
+		public static final String TABLE_NAME="events";
+		public static final String COLUMN_NAME="name";
+		public static final String COLUMN_E_ID="e_id";
+		public static final String COLUMN_DESC="desc";
+		public static final String COLUMN_PIC="pic";
+		public static final String COLUMN_INTERESTED="interested";
+		public static final String COLUMN_GOING="going";
+		public static final String COLUMN_PLACE_NAME="place_name";
+		public static final String COLUMN_CITY="city";
+		public static final String COLUMN_LAT="lat";
+		public static final String COLUMN_LONG="long";
+		public static final String COLUMN_STREET="street";
+
+		public static final String[] PROJECTIONS={
+				TABLE_NAME+"."+_ID,
+				COLUMN_NAME,
+				COLUMN_E_ID,
+				COLUMN_DESC,
+				COLUMN_PIC,
+				COLUMN_INTERESTED,
+				COLUMN_GOING,
+				COLUMN_PLACE_NAME,
+				COLUMN_CITY,
+				COLUMN_LAT,
+				COLUMN_LONG,
+				COLUMN_STREET,
+		};
+
+		public static Uri getEventUri(String eventId){
+			return CONTENT_URI.buildUpon().appendPath(eventId).build();
+		}
 
 	}
 

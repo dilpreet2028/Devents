@@ -12,6 +12,9 @@ import java.text.SimpleDateFormat;
  */
 
 public class Utility {
+
+	public static final int MAX_DISTANCE=50;
+
 	public static void logger(String msg){
 		if(BuildConfig.DEBUG)
 		Log.d("mytag",msg);

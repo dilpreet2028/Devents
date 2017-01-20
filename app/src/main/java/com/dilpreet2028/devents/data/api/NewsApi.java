@@ -41,9 +41,9 @@ public class NewsApi {
 
 	public void getNews(){
 		Retrofit retrofit=new Retrofit.Builder()
-							.baseUrl(BuildConfig.NEWS_API_URL)
-							.addConverterFactory(GsonConverterFactory.create())
-							.build();
+				.baseUrl(BuildConfig.NEWS_API_URL)
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
 		FetchNews fetchNews=retrofit.create(FetchNews.class);
 		Call<News> call=fetchNews.getNews();
 		call.enqueue(new Callback<News>() {
@@ -65,8 +65,7 @@ public class NewsApi {
 
 		Vector<ContentValues> cVector=new Vector<>(articleList.size());
 		String savedDate=maxDatePresent();
-		Utility.logger("Saved");
-		Utility.logger(savedDate);
+
 		for(Article article:articleList){
 
 			if(!Utility.shouldAdd(article.getPublishedAt(),savedDate))
@@ -85,8 +84,8 @@ public class NewsApi {
 
 		if(cVector.size()>0) {
 			context.getContentResolver().delete(DataContract.NewsItems.CONTENT_URI
-												,DataContract.NewsItems.COLUMN_PUB_AT+"< ?",
-												 new String[]{timeStampBeforeMonth()});
+					,DataContract.NewsItems.COLUMN_PUB_AT+"< ?",
+					new String[]{timeStampBeforeMonth()});
 
 			ContentValues[] values = new ContentValues[cVector.size()];
 			cVector.toArray(values);
@@ -97,8 +96,8 @@ public class NewsApi {
 	private String maxDatePresent(){
 		String timeStamp=null;
 		Cursor cursor=context.getContentResolver().query(DataContract.NewsItems.CONTENT_URI,
-											new String[]{"max("+DataContract.NewsItems.COLUMN_PUB_AT+")"}
-											,null,null,null);
+				new String[]{"max("+DataContract.NewsItems.COLUMN_PUB_AT+")"}
+				,null,null,null);
 		if(cursor.moveToNext())
 			timeStamp=cursor.getString(0);
 

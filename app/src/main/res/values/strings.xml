@@ -3,8 +3,12 @@
 
     <string name="gcm_id">969587916242</string>
     <string name="content_authority">com.dilpreet2028.devents</string>
-
+    <string name="event">event</string>
+    <string name="event_id">eventID</string>
+    <string name="google_maps_key">AIzaSyBVjRUzuX39GJdrfHozt_mevxcAQ30vNIk</string>
     <string name="pref_email">email</string>
     <string name="pref_token">token</string>
+    <string name="pref_lat">lat</string>
+    <string name="pref_long">long</string>
 
 </resources>
