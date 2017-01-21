@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 public class Utility {
 
 	public static final int MAX_DISTANCE=50;
+	public static final String ACTION_DATA_UPDATED="com.dilpreet2028.devents.DATA_UPDATED";
+
 
 	public static void logger(String msg){
 		if(BuildConfig.DEBUG)

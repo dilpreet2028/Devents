@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:layout_margin="@dimen/card_margin"
+    android:id="@+id/event_item_layout"
     android:foreground="?android:selectableItemBackground">
 
 

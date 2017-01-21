@@ -2,6 +2,8 @@ package com.dilpreet2028.devents.data.api;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.dilpreet2028.devents.BuildConfig;
@@ -90,6 +92,11 @@ public class FacebookApi {
 					context.getContentResolver().insert(DataContract.EventsItem.CONTENT_URI,contentValue);
 
 					Utility.logger("addedddd");
+
+					Log.d("mytag","updated widget");
+					Intent updatedDataIntent=new Intent(Utility.ACTION_DATA_UPDATED);
+					updatedDataIntent.setPackage(context.getPackageName());
+					context.sendBroadcast(updatedDataIntent);
 				}
 				else {
 					Utility.logger("out of coverage area :p");
@@ -107,4 +114,5 @@ public class FacebookApi {
 		iLocation.calculate(lati+","+longi,context);
 
 	}
+
 }

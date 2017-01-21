@@ -10,5 +10,6 @@
     <string name="pref_token">token</string>
     <string name="pref_lat">lat</string>
     <string name="pref_long">long</string>
+    <string name="list_empty">List is empty</string>
 
 </resources>
