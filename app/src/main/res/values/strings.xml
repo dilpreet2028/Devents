@@ -10,6 +10,7 @@
     <string name="pref_token">token</string>
     <string name="pref_lat">lat</string>
     <string name="pref_long">long</string>
+    <string name="pref_init_event">init_events</string>
     <string name="list_empty">List is empty</string>
     <string name="event_shared">Event shared </string>
     <string name="fb_event_url">https://www.facebook.com/events/</string>

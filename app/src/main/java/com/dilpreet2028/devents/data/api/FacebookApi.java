@@ -83,30 +83,7 @@ public class FacebookApi {
 			public void fetchDistance(int distance) {
 				if(distance< Utility.MAX_DISTANCE){
 
-					ContentValues contentValue=new ContentValues();
-					contentValue.put(DataContract.EventsItem.COLUMN_NAME,event.getName());
-					contentValue.put(DataContract.EventsItem.COLUMN_E_ID,event.getId());
-					contentValue.put(DataContract.EventsItem.COLUMN_DESC,event.getDescription());
-					contentValue.put(DataContract.EventsItem.COLUMN_PIC,event.getCover().getSource());
-					contentValue.put(DataContract.EventsItem.COLUMN_INTERESTED,event.getInterestedCount());
-					contentValue.put(DataContract.EventsItem.COLUMN_GOING,event.getAttendingCount());
-					contentValue.put(DataContract.EventsItem.COLUMN_PLACE_NAME,event.getPlace().getName());
-					contentValue.put(DataContract.EventsItem.COLUMN_CITY,event.getPlace().getLocation().getCity());
-					contentValue.put(DataContract.EventsItem.COLUMN_LAT,event.getPlace().getLocation().getLatitude());
-					contentValue.put(DataContract.EventsItem.COLUMN_LONG,event.getPlace().getLocation().getLongitude());
-					contentValue.put(DataContract.EventsItem.COLUMN_STREET,event.getPlace().getLocation().getStreet());
-
-					context.getContentResolver().insert(DataContract.EventsItem.CONTENT_URI,contentValue);
-
-					Utility.logger("addedddd");
-
-					Log.d("mytag","updated widget");
-					Intent updatedDataIntent=new Intent(Utility.ACTION_DATA_UPDATED);
-					updatedDataIntent.setPackage(context.getPackageName());
-					context.sendBroadcast(updatedDataIntent);
-
-					notifyUser(context,event.getName(),event.getId());
-
+					addEvent(event,context);
 				}
 				else {
 					Utility.logger("out of coverage area :p");
@@ -116,11 +93,40 @@ public class FacebookApi {
 			@Override
 			public void onError(String msg) {
 				Utility.logger("ilocation "+msg);
+				addEvent(event,context);
+
 			}
 		});
 
 		Utility.logger(lati+" "+longi);
 		iLocation.calculate(lati+","+longi,context);
+
+	}
+
+	private static void addEvent(Event event,Context context){
+		ContentValues contentValue=new ContentValues();
+		contentValue.put(DataContract.EventsItem.COLUMN_NAME,event.getName());
+		contentValue.put(DataContract.EventsItem.COLUMN_E_ID,event.getId());
+		contentValue.put(DataContract.EventsItem.COLUMN_DESC,event.getDescription());
+		contentValue.put(DataContract.EventsItem.COLUMN_PIC,event.getCover().getSource());
+		contentValue.put(DataContract.EventsItem.COLUMN_INTERESTED,event.getInterestedCount());
+		contentValue.put(DataContract.EventsItem.COLUMN_GOING,event.getAttendingCount());
+		contentValue.put(DataContract.EventsItem.COLUMN_PLACE_NAME,event.getPlace().getName());
+		contentValue.put(DataContract.EventsItem.COLUMN_CITY,event.getPlace().getLocation().getCity());
+		contentValue.put(DataContract.EventsItem.COLUMN_LAT,event.getPlace().getLocation().getLatitude());
+		contentValue.put(DataContract.EventsItem.COLUMN_LONG,event.getPlace().getLocation().getLongitude());
+		contentValue.put(DataContract.EventsItem.COLUMN_STREET,event.getPlace().getLocation().getStreet());
+
+		context.getContentResolver().insert(DataContract.EventsItem.CONTENT_URI,contentValue);
+
+		Utility.logger("addedddd");
+
+		Log.d("mytag","updated widget");
+		Intent updatedDataIntent=new Intent(Utility.ACTION_DATA_UPDATED);
+		updatedDataIntent.setPackage(context.getPackageName());
+		context.sendBroadcast(updatedDataIntent);
+
+		notifyUser(context,event.getName(),event.getId());
 
 	}
 
