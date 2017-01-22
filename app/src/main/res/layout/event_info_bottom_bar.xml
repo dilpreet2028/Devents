@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/text_margin"
+        android:paddingBottom="@dimen/card_margin"
+        android:background="@android:color/white">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1.3"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Going"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/card_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Going"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/card_margin"
+                android:id="@+id/event_info_going"
+                android:layout_marginRight="@dimen/text_margin"
+                android:textAppearance="?android:textAppearanceMedium"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_gravity="center"
+            android:layout_height="40dp"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Interested"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/card_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Interested"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/card_margin"
+                android:id="@+id/event_info_interested"
+                android:textAppearance="?android:textAppearanceMedium"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attend Event"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/text_margin"
+            android:onClick="eventInfoAttendBtn"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="@dimen/card_margin"
+            android:layout_marginEnd="@dimen/card_margin"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

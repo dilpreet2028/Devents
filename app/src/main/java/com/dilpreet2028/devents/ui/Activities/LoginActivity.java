@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.TransitionDrawable;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -54,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 			UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 	private final int REQUEST_CHECK_SETTINGS=12;
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 				.build();
 
 		signInButton=(SignInButton)findViewById(R.id.sign_in_button);
-		signInButton.setSize(SignInButton.SIZE_STANDARD);
+		signInButton.setSize(SignInButton.SIZE_WIDE);
 
 		signInButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -96,6 +99,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 		});
 
 		loginPresenter=new LoginPresenterImpl(this);
+
 
 
 	}
@@ -190,6 +194,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 		if(requestCode==LOCATION_CODE){
 			if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
 				Utility.logger("granted");
+				getLocationDetails();
 			}
 		}
 	}

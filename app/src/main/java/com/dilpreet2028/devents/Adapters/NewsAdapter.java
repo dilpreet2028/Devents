@@ -24,8 +24,10 @@ public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolde
 
 
 	private Context context;
-	public NewsAdapter(Context context, Cursor cursor) {
+	private Callback callback;
+	public NewsAdapter(Context context, Cursor cursor,Callback callback) {
 		super(context, cursor);
+		this.callback=callback;
 		this.context=context;
 	}
 
@@ -59,6 +61,17 @@ public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolde
 		public NewsViewHolder(View itemView) {
 			super(itemView);
 			ButterKnife.bind(this,itemView);
+
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					callback.onClick(getAdapterPosition());
+				}
+			});
 		}
+	}
+
+	public interface Callback{
+		public void onClick(int pos);
 	}
 }

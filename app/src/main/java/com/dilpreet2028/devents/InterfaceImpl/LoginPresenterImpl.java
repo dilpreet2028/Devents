@@ -24,11 +24,14 @@ public class LoginPresenterImpl implements LoginPresenter,LoginInteractor.OnLogi
 
 	@Override
 	public void processGoogleSignInData(GoogleSignInResult result) {
-		GoogleSignInAccount account=result.getSignInAccount();
-		String email=account.getEmail();
-		String name=account.getDisplayName();
+		if (result.isSuccess()) {
+
+			GoogleSignInAccount account=result.getSignInAccount();
+			String email=account.getEmail();
+			String name=account.getDisplayName();
 //		Utility.logger(email);
-		loginInteractor.login(name,email,this);
+			loginInteractor.login(name,email,this);
+		}
 	}
 
 	@Override

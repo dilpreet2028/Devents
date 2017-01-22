@@ -5,19 +5,17 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.dilpreet2028.devents.Adapters.ViewPagerAdapter;
 import com.dilpreet2028.devents.R;
-import com.dilpreet2028.devents.Utils.ClipBoardMonitorService;
+import com.dilpreet2028.devents.Services.ClipBoardMonitorService;
 import com.dilpreet2028.devents.Utils.NewsBroadCastReciever;
 import com.dilpreet2028.devents.Utils.ViewPagerTransformer;
-import com.dilpreet2028.devents.data.api.LocationApi;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
 	@BindView(R.id.main_viewpager)
 	ViewPager viewPager;
+	@BindView(R.id.tabs)
+	TabLayout tabLayout;
 
 	private ViewPagerAdapter viewPagerAdapter;
 	private SharedPreferences sharedPreferences;
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 		viewPager.setPageTransformer(false,new ViewPagerTransformer());
 		viewPager.setPageMargin(30);
 
+		tabLayout.setupWithViewPager(viewPager);
+
 		sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
 
 		startService(new Intent(this, ClipBoardMonitorService.class));
@@ -55,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
 		PendingIntent pi=PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 
 		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60, 1000*60*5,pi);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60, 18000,pi);
 	}
 }

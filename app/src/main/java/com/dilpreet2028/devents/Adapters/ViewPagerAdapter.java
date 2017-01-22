@@ -24,7 +24,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		return super.getPageTitle(position);
+
+		return position==0?"News":"Events";
 	}
 
 	@Override
@@ -35,8 +36,5 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 			return new EventsListFragment();
 	}
 
-	@Override
-	public float getPageWidth(int position) {
-		return 0.90f;
-	}
+
 }

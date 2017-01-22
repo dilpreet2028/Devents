@@ -1,13 +1,17 @@
 package com.dilpreet2028.devents.ui.Activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.net.Uri;
 import android.renderscript.Double2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.dilpreet2028.devents.R;
@@ -35,6 +39,7 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 	@BindView(R.id.event_card) CardView cardView;
 	@BindView(R.id.scrollview)	MyScrollView myScrollView;
 
+	private Cursor cursor;
 	private LatLng latLng;
 	private String locationName;
 	private String eventId;
@@ -43,9 +48,10 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
 		ButterKnife.bind(this);
-		eventId=getIntent().getStringExtra(getString(R.string.event_id));
+			eventId = getIntent().getStringExtra(getString(R.string.event_id));
+
 		Utility.logger(eventId);
-		Cursor cursor=getContentResolver().query(DataContract.EventsItem.getEventUri(eventId),DataContract.EventsItem.PROJECTIONS,null
+		cursor=getContentResolver().query(DataContract.EventsItem.getEventUri(eventId),DataContract.EventsItem.PROJECTIONS,null
 									,null,null);
 
 		cursor.moveToNext();
@@ -85,5 +91,14 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 		googleMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
 		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,12.0f));
 
+	}
+
+	public void eventInfoAttendBtn(View view){
+		String eId=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_E_ID));
+
+		String url="https://www.facebook.com/events/"+eId;
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setData(Uri.parse(url));
+		startActivity(i);
 	}
 }

@@ -23,10 +23,11 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
-            android:layout_width="match_parent"
+            app:tabGravity="center"
+            android:layout_width="@dimen/landscape_view_width"
             android:layout_height="?attr/actionBarSize"
             app:tabIndicatorHeight="3dp"
-            android:layout_gravity="top" />
+            android:layout_gravity="bottom|center" />
 
     </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -35,6 +36,7 @@
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:id="@+id/main_viewpager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

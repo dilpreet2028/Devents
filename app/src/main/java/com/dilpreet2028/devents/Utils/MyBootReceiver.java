@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.dilpreet2028.devents.Services.ClipBoardMonitorService;
+
 import static android.content.Context.ALARM_SERVICE;
 
 public class MyBootReceiver extends BroadcastReceiver {

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dilpreet2028.devents.R;
+import com.dilpreet2028.devents.Utils.Utility;
 import com.dilpreet2028.devents.data.DataContract;
 
 import butterknife.BindView;
@@ -67,13 +68,14 @@ public class EventsAdapter extends CursorRecyclerAdapter<EventsAdapter.EventsHol
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					onItemClickListener.onClick(getCursor().getString(getCursor().getColumnIndex(DataContract.EventsItem.COLUMN_E_ID)));
+					Utility.logger(getAdapterPosition()+"  pos");
+					onItemClickListener.onClick(getAdapterPosition());
 				}
 			});
 		}
 	}
 
 	public interface OnItemClickListener{
-		public void onClick(String eventId);
+		public void onClick(int pos);
 	}
 }

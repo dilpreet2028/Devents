@@ -19,9 +19,11 @@ android {
     buildTypes.each{
         it.buildConfigField 'String','NEWS_API_URL','"https://newsapi.org/"'
         it.buildConfigField 'String','NEWS_API_KEY','"NEWS_API_KEY"'
-        it.buildConfigField 'String','EVENT_API_URL','"http://192.168.0.30:8000/"'
+        it.buildConfigField 'String','EVENT_API_URL','"https://devents.herokuapp.com/"'
         it.buildConfigField 'String','FB_APP_ID','"FB_APP_ID"'
         it.buildConfigField 'String','FB_APP_SECRET','"FB_APP_SECRET"'
+
+
     }
 }
 
@@ -31,6 +33,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'

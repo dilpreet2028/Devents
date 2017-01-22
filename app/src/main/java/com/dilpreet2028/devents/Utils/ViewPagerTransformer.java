@@ -14,12 +14,18 @@ public class ViewPagerTransformer implements ViewPager.PageTransformer {
 	public void transformPage(View page, float position) {
 		int height=page.getHeight();
 
-		if (position<-1)
-			page.setAlpha(0.3f);
-		else if (position<=1){
-			page.setAlpha(1f);
-		}
-		else
-			page.setAlpha(0.3f);
+//		if (position<-1)
+//		{
+//			page.setRotationY(page.getWidth()*-1.7f);
+//			page.setTranslationX(page.getWidth()*-1.7f);
+//		}
+//		else if (position<=1){
+//			page.setAlpha(1f);
+//			page.setRotationY(position*-30);
+//			page.setTranslationX(position*-1.5f);
+//
+//		}
+//		else
+//			page.setAlpha(0.3f);
 	}
 }

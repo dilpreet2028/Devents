@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
@@ -54,12 +53,12 @@
             </intent-filter>
         </service>
         <service
-            android:name=".Utils.ClipBoardMonitorService"
+            android:name=".Services.ClipBoardMonitorService"
             android:enabled="true"
             android:exported="true">
         </service>
         <service
-            android:name=".Utils.CreateEventService"
+            android:name=".Services.CreateEventService"
             android:enabled="true"
             android:exported="true">
         </service>
@@ -68,7 +67,7 @@
         </activity>
 
         <service
-            android:name=".Utils.NewsIntentService"
+            android:name=".Services.NewsIntentService"
             android:exported="false">
         </service>
 
@@ -82,17 +81,20 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.dilpreet2028.devents.Widget.EventsWidgetService"
-                 android:exported="false"
-                 android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".Widget.EventsWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <receiver android:name=".Widget.EventWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="com.dilpreet2028.devents.DATA_UPDATED"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/widget_stocks"/>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_stocks"/>
         </receiver>
 
     </application>

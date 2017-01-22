@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
  */
 
 public class Utility {
-
+	private static final String FACEBOOK_URL="facebook.com/events/";
 	public static final int MAX_DISTANCE=50;
 	public static final String ACTION_DATA_UPDATED="com.dilpreet2028.devents.DATA_UPDATED";
 
@@ -35,5 +35,13 @@ public class Utility {
 
 	public static boolean shouldAdd(String currentTime,String savedTime){
 		return parseDate(currentTime)>parseDate(savedTime);
+	}
+
+	public static String getEventId(String url){
+		return url.split(FACEBOOK_URL)[1].split("/")[0].split("\\?")[0];
+	}
+
+	public static boolean containsFBUrl(String data){
+		return data.contains(FACEBOOK_URL);
 	}
 }

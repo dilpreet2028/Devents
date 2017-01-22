@@ -1,4 +1,4 @@
-package com.dilpreet2028.devents.Utils;
+package com.dilpreet2028.devents.Services;
 
 import android.app.IntentService;
 import android.content.Intent;

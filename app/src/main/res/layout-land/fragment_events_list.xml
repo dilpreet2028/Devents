@@ -3,12 +3,14 @@
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
+
      xmlns:app="http://schemas.android.com/apk/res-auto"
      tools:context=".ui.Fragments.EventsListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/landscape_view_width"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:id="@+id/events_recycler_view"/>
 
     <android.support.design.widget.FloatingActionButton

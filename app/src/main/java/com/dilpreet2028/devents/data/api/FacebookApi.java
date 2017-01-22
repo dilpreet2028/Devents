@@ -1,8 +1,11 @@
 package com.dilpreet2028.devents.data.api;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,8 +13,11 @@ import com.dilpreet2028.devents.BuildConfig;
 import com.dilpreet2028.devents.InterfaceImpl.LocationImpl;
 import com.dilpreet2028.devents.Interfaces.ILocation;
 import com.dilpreet2028.devents.Models.Event.Event;
+import com.dilpreet2028.devents.R;
 import com.dilpreet2028.devents.Utils.Utility;
 import com.dilpreet2028.devents.data.DataContract;
+import com.dilpreet2028.devents.ui.Activities.EventInfoActivity;
+import com.dilpreet2028.devents.ui.Activities.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,6 +103,9 @@ public class FacebookApi {
 					Intent updatedDataIntent=new Intent(Utility.ACTION_DATA_UPDATED);
 					updatedDataIntent.setPackage(context.getPackageName());
 					context.sendBroadcast(updatedDataIntent);
+
+					notifyUser(context,event.getName(),event.getId());
+
 				}
 				else {
 					Utility.logger("out of coverage area :p");
@@ -115,4 +124,21 @@ public class FacebookApi {
 
 	}
 
+
+	private static void notifyUser(Context context,String eventTitle,String eventId){
+
+		Intent intent=new Intent(context, MainActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		PendingIntent pi=PendingIntent.getActivity(context,0,intent,0);
+
+
+		NotificationManager manager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		NotificationCompat.Builder builder=new NotificationCompat.Builder(context)
+								.setSmallIcon(R.mipmap.ic_launcher)
+								.setContentTitle("New Event")
+								.setContentIntent(pi)
+								.setContentText(eventTitle);
+		manager.notify(12,builder.build());
+	}
 }

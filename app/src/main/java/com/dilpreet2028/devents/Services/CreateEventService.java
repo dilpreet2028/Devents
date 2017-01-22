@@ -1,12 +1,14 @@
-package com.dilpreet2028.devents.Utils;
+package com.dilpreet2028.devents.Services;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.dilpreet2028.devents.BuildConfig;
 import com.dilpreet2028.devents.Models.EventResult;
 import com.dilpreet2028.devents.R;
+import com.dilpreet2028.devents.Utils.Utility;
 import com.dilpreet2028.devents.data.api.EventsApi;
 
 import retrofit2.Call;
@@ -47,6 +49,7 @@ public class CreateEventService extends IntentService {
 			@Override
 			public void onResponse(Call<EventResult> call, Response<EventResult> response) {
 				Utility.logger(response.body().getStr()+" ");
+				Toast.makeText(getApplicationContext(), "Event shared ", Toast.LENGTH_SHORT).show();
 
 			}
 
