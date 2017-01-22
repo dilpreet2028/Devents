@@ -22,7 +22,7 @@ public class MyBootReceiver extends BroadcastReceiver {
 
 		PendingIntent pi=PendingIntent.getBroadcast(context,0,in,0);
 		AlarmManager alarmManager=(AlarmManager)context.getSystemService(ALARM_SERVICE);
-		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60, 1000*60*5,pi);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60, 18000000,pi);
 
 	}
 }

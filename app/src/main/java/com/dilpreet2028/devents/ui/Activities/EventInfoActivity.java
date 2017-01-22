@@ -63,9 +63,12 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 
 		String latitude=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_LAT));
 		String longitude=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_LONG));
+		String name=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_NAME));
 		latLng=new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
 		locationName=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PLACE_NAME));
-		nameView.setText(cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_NAME)));
+		nameView.setText(name);
+		nameView.setContentDescription(name);
+		descView.setText(desc);
 		descView.setText(desc);
 		goingView.setText(cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_GOING)));
 		interestedView.setText(cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_INTERESTED)));
@@ -96,7 +99,7 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 	public void eventInfoAttendBtn(View view){
 		String eId=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_E_ID));
 
-		String url="https://www.facebook.com/events/"+eId;
+		String url=getString(R.string.fb_event_url)+eId;
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(url));
 		startActivity(i);

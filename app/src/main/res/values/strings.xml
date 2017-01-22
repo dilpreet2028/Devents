@@ -11,5 +11,10 @@
     <string name="pref_lat">lat</string>
     <string name="pref_long">long</string>
     <string name="list_empty">List is empty</string>
-
+    <string name="event_shared">Event shared </string>
+    <string name="fb_event_url">https://www.facebook.com/events/</string>
+    <string name="going">%1$s going</string>
+    <string name="new_event">New Event</string>
+    <string name="gps_not_enabled">GPS is not enabled</string>
+    <string name="firebase_subcribe_topic">events</string>
 </resources>

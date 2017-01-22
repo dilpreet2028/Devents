@@ -1,5 +1,6 @@
 package com.dilpreet2028.devents.data.api;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
@@ -109,7 +110,6 @@ public class FacebookApi {
 				}
 				else {
 					Utility.logger("out of coverage area :p");
-					Toast.makeText(context, "out of coverage area :p", Toast.LENGTH_SHORT).show();
 				}
 			}
 
@@ -136,9 +136,11 @@ public class FacebookApi {
 
 		NotificationCompat.Builder builder=new NotificationCompat.Builder(context)
 								.setSmallIcon(R.mipmap.ic_launcher)
-								.setContentTitle("New Event")
+								.setContentTitle(context.getString(R.string.new_event))
 								.setContentIntent(pi)
-								.setContentText(eventTitle);
+								.setContentText(eventTitle)
+								.setDefaults(Notification.DEFAULT_ALL);
+
 		manager.notify(12,builder.build());
 	}
 }

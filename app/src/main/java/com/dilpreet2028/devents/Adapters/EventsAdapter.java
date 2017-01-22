@@ -47,7 +47,10 @@ public class EventsAdapter extends CursorRecyclerAdapter<EventsAdapter.EventsHol
 		String url=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PIC));
 
 		viewHolder.titleView.setText(title);
-		viewHolder.goingView.setText(going+" Going");
+		viewHolder.goingView.setText(context.getString(R.string.going,going));
+
+		viewHolder.titleView.setContentDescription(title);
+		viewHolder.goingView.setText(context.getString(R.string.going,going));
 
 		Glide.with(context)
 				.load(url)

@@ -49,7 +49,7 @@ public class CreateEventService extends IntentService {
 			@Override
 			public void onResponse(Call<EventResult> call, Response<EventResult> response) {
 				Utility.logger(response.body().getStr()+" ");
-				Toast.makeText(getApplicationContext(), "Event shared ", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.event_shared), Toast.LENGTH_SHORT).show();
 
 			}
 

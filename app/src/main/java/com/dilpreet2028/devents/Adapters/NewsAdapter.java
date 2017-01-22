@@ -44,6 +44,7 @@ public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolde
 		String title=cursor.getString(cursor.getColumnIndex(DataContract.NewsItems.COLUMN_TITLE));
 
 		viewHolder.titleTextView.setText(title);
+		viewHolder.titleTextView.setContentDescription(title);
 
 		Glide.with(context)
 				.load(imageUrl)

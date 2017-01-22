@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 			} else {
 
-				Toast.makeText(getApplicationContext(), "GPS is not enabled", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.gps_not_enabled), Toast.LENGTH_LONG).show();
 			}
 
 		}

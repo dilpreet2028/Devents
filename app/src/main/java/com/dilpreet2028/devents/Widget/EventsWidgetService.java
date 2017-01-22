@@ -87,7 +87,7 @@ public class EventsWidgetService extends RemoteViewsService {
 
 
 				remoteViews.setTextViewText(R.id.events_item_title,name);
-				remoteViews.setTextViewText(R.id.events_item_going,"Going :"+going);
+				remoteViews.setTextViewText(R.id.events_item_going,getString(R.string.going,going));
 				Utility.logger(name+" asdsad");
 
 				Intent detailIntent=new Intent(getApplicationContext(), EventInfoActivity.class);

@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
 
-		FirebaseMessaging.getInstance().subscribeToTopic("events");
-
+		FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.firebase_subcribe_topic));
 		viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(viewPagerAdapter);
 		viewPager.setPageTransformer(false,new ViewPagerTransformer());
@@ -57,6 +56,6 @@ public class MainActivity extends AppCompatActivity {
 		PendingIntent pi=PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
 
 		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60, 18000,pi);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60*60, 18000000,pi);
 	}
 }
