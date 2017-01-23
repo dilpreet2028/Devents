@@ -32,6 +32,8 @@ android {
         it.buildConfigField 'String','FB_APP_ID','"FB_APP_ID"'
         it.buildConfigField 'String','FB_APP_SECRET','"FB_APP_SECRET"'
 
+
+
     }
 }
 

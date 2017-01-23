@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 				.enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
 					@Override
 					public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+						Toast.makeText(MainActivity.this, "connection failed", Toast.LENGTH_SHORT).show();
 					}
 				})
 				.addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
