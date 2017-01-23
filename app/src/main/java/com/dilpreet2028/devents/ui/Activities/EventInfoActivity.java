@@ -29,43 +29,51 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-	@BindView(R.id.event_info_pic) ImageView imageView;
-	@BindView(R.id.event_info_name) TextView nameView;
-	@BindView(R.id.event_info_desc) TextView descView;
-	@BindView(R.id.event_info_going) TextView goingView;
-	@BindView(R.id.event_info_interested) TextView interestedView;
-	@BindView(R.id.event_card) CardView cardView;
-	@BindView(R.id.scrollview)	MyScrollView myScrollView;
+	@BindView(R.id.event_info_pic)
+	ImageView imageView;
+	@BindView(R.id.event_info_name)
+	TextView nameView;
+	@BindView(R.id.event_info_desc)
+	TextView descView;
+	@BindView(R.id.event_info_going)
+	TextView goingView;
+	@BindView(R.id.event_info_interested)
+	TextView interestedView;
+	@BindView(R.id.event_card)
+	CardView cardView;
+	@BindView(R.id.scrollview)
+	MyScrollView myScrollView;
 
 	private Cursor cursor;
 	private LatLng latLng;
 	private String locationName;
 	private String eventId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
 		ButterKnife.bind(this);
-			eventId = getIntent().getStringExtra(getString(R.string.event_id));
+		eventId = getIntent().getStringExtra(getString(R.string.event_id));
 
 		Utility.logger(eventId);
-		cursor=getContentResolver().query(DataContract.EventsItem.getEventUri(eventId),DataContract.EventsItem.PROJECTIONS,null
-									,null,null);
+		cursor = getContentResolver().query(DataContract.EventsItem.getEventUri(eventId), DataContract.EventsItem.PROJECTIONS, null
+				, null, null);
 
 		cursor.moveToNext();
 		Glide.with(getApplicationContext())
 				.load(cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PIC)))
 				.into(imageView);
 
-		String desc=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_DESC));
+		String desc = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_DESC));
 
-		String latitude=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_LAT));
-		String longitude=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_LONG));
-		String name=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_NAME));
-		latLng=new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
-		locationName=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PLACE_NAME));
+		String latitude = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_LAT));
+		String longitude = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_LONG));
+		String name = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_NAME));
+		latLng = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+		locationName = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PLACE_NAME));
 		nameView.setText(name);
 		nameView.setContentDescription(name);
 		descView.setText(desc);
@@ -77,9 +85,9 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 		myScrollView.setCallback(new MyScrollView.Callback() {
 			@Override
 			public void onScroll() {
-				int scrollY=myScrollView.getScrollY();
-				imageView.setTranslationY(scrollY*0.45f);
-				cardView.setTranslationY(-scrollY*0.05f);
+				int scrollY = myScrollView.getScrollY();
+				imageView.setTranslationY(scrollY * 0.45f);
+				cardView.setTranslationY(-scrollY * 0.05f);
 			}
 		});
 
@@ -92,14 +100,14 @@ public class EventInfoActivity extends AppCompatActivity implements OnMapReadyCa
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
 		googleMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
-		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,12.0f));
+		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
 
 	}
 
-	public void eventInfoAttendBtn(View view){
-		String eId=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_E_ID));
+	public void eventInfoAttendBtn(View view) {
+		String eId = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_E_ID));
 
-		String url=getString(R.string.fb_event_url)+eId;
+		String url = getString(R.string.fb_event_url) + eId;
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(url));
 		startActivity(i);

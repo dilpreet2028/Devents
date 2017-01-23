@@ -25,12 +25,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public CharSequence getPageTitle(int position) {
 
-		return position==0?"News":"Events";
+		return position == 0 ? "News" : "Events";
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		if (position==0)
+		if (position == 0)
 			return new NewsListFragment();
 		else
 			return new EventsListFragment();

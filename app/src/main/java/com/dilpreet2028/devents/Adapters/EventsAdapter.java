@@ -26,31 +26,31 @@ public class EventsAdapter extends CursorRecyclerAdapter<EventsAdapter.EventsHol
 	private Context context;
 	private OnItemClickListener onItemClickListener;
 
-	public EventsAdapter(Context context, Cursor cursor,OnItemClickListener onItemClickListener) {
+	public EventsAdapter(Context context, Cursor cursor, OnItemClickListener onItemClickListener) {
 		super(context, cursor);
-		this.context=context;
-		this.onItemClickListener=onItemClickListener;
+		this.context = context;
+		this.onItemClickListener = onItemClickListener;
 
 	}
 
 	@Override
 	public EventsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View itemView= LayoutInflater.from(parent.getContext())
-				.inflate(R.layout.events_item,parent,false);
+		View itemView = LayoutInflater.from(parent.getContext())
+				.inflate(R.layout.events_item, parent, false);
 		return new EventsHolder(itemView);
 	}
 
 	@Override
 	public void onBindViewHolder(EventsHolder viewHolder, Cursor cursor) {
-		String title=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_NAME));
-		String going=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_GOING));
-		String url=cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PIC));
+		String title = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_NAME));
+		String going = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_GOING));
+		String url = cursor.getString(cursor.getColumnIndex(DataContract.EventsItem.COLUMN_PIC));
 
 		viewHolder.titleView.setText(title);
-		viewHolder.goingView.setText(context.getString(R.string.going,going));
+		viewHolder.goingView.setText(context.getString(R.string.going, going));
 
 		viewHolder.titleView.setContentDescription(title);
-		viewHolder.goingView.setText(context.getString(R.string.going,going));
+		viewHolder.goingView.setText(context.getString(R.string.going, going));
 
 		Glide.with(context)
 				.load(url)
@@ -58,27 +58,30 @@ public class EventsAdapter extends CursorRecyclerAdapter<EventsAdapter.EventsHol
 
 	}
 
-	public class EventsHolder extends RecyclerView.ViewHolder{
+	public class EventsHolder extends RecyclerView.ViewHolder {
 
-		@BindView(R.id.events_item_title)TextView titleView;
-		@BindView(R.id.events_item_going)TextView goingView;
-		@BindView(R.id.events_item_image)ImageView imageView;
+		@BindView(R.id.events_item_title)
+		TextView titleView;
+		@BindView(R.id.events_item_going)
+		TextView goingView;
+		@BindView(R.id.events_item_image)
+		ImageView imageView;
 
 		public EventsHolder(View itemView) {
 			super(itemView);
-			ButterKnife.bind(this,itemView);
+			ButterKnife.bind(this, itemView);
 
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					Utility.logger(getAdapterPosition()+"  pos");
+					Utility.logger(getAdapterPosition() + "  pos");
 					onItemClickListener.onClick(getAdapterPosition());
 				}
 			});
 		}
 	}
 
-	public interface OnItemClickListener{
+	public interface OnItemClickListener {
 		public void onClick(int pos);
 	}
 }

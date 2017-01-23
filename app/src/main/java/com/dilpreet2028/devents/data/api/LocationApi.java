@@ -25,7 +25,7 @@ import retrofit2.http.Query;
  */
 
 public class LocationApi {
-	public interface Api{
+	public interface Api {
 		@GET("maps/api/directions/json")
 		Call<ResponseBody> getDistance(@Query("origin") String latlong1, @Query("destination") String latlong2,
 									   @Query("sensor") String sensor);

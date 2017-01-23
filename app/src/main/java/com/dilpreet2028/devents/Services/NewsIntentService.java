@@ -13,7 +13,7 @@ public class NewsIntentService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		NewsApi newsApi=new NewsApi(this);
+		NewsApi newsApi = new NewsApi(this);
 		newsApi.getNews();
 	}
 

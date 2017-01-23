@@ -21,11 +21,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 		super.onMessageReceived(remoteMessage);
 		Map data = remoteMessage.getData();
 
-		Utility.logger(data.toString()+"  "+data.get("message").toString());
+		Utility.logger(data.toString() + "  " + data.get("message").toString());
 
-		String eventId=data.get("message").toString();
+		String eventId = data.get("message").toString();
 
-		FacebookApi.fetchInfo(getApplicationContext(),eventId, new FacebookApi.GraphApi.CallBack() {
+		FacebookApi.fetchInfo(getApplicationContext(), eventId, new FacebookApi.GraphApi.CallBack() {
 			@Override
 			public void onSuccess(Event event) {
 				Utility.logger("event recieved");

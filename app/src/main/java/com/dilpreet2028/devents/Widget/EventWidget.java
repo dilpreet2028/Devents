@@ -27,13 +27,12 @@ public class EventWidget extends AppWidgetProvider {
 	public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
 
-		if(Utility.ACTION_DATA_UPDATED.equals(intent.getAction()))
-		{
+		if (Utility.ACTION_DATA_UPDATED.equals(intent.getAction())) {
 
-			AppWidgetManager manager=AppWidgetManager.getInstance(context);
-			int ids[]=manager.getAppWidgetIds(new ComponentName(context,getClass()));
+			AppWidgetManager manager = AppWidgetManager.getInstance(context);
+			int ids[] = manager.getAppWidgetIds(new ComponentName(context, getClass()));
 			manager.notifyAppWidgetViewDataChanged(ids, R.id.widget_list);
-			Log.d("mytag","manager notified");
+			Log.d("mytag", "manager notified");
 		}
 
 
@@ -42,13 +41,13 @@ public class EventWidget extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
-		Log.d("mytag","onpudate");
-		for(int appId:appWidgetIds){
-			RemoteViews views=new RemoteViews(context.getPackageName(),R.layout.widget_layout);
-			Log.d("mytag","inside update");
-			Intent intent=new Intent(context, MainActivity.class);
-			PendingIntent pendingIntent=PendingIntent.getActivity(context,0,intent,0);
-			views.setOnClickPendingIntent(R.id.widget_header,pendingIntent);
+		Log.d("mytag", "onpudate");
+		for (int appId : appWidgetIds) {
+			RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+			Log.d("mytag", "inside update");
+			Intent intent = new Intent(context, MainActivity.class);
+			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+			views.setOnClickPendingIntent(R.id.widget_header, pendingIntent);
 
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 				setRemoteAdapter(context, views);
@@ -58,19 +57,18 @@ public class EventWidget extends AppWidgetProvider {
 
 			views.setEmptyView(R.id.widget_list, R.id.widget_empty);
 
-			Intent clickIntentTemplate =new Intent(context, EventInfoActivity.class);
+			Intent clickIntentTemplate = new Intent(context, EventInfoActivity.class);
 			PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
 					.addNextIntentWithParentStack(clickIntentTemplate)
 					.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 			views.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
 
 
-			appWidgetManager.updateAppWidget(appId,views);
+			appWidgetManager.updateAppWidget(appId, views);
 
 		}
 
 	}
-
 
 
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -81,6 +79,6 @@ public class EventWidget extends AppWidgetProvider {
 
 	@SuppressWarnings("deprecation")
 	private void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
-		views.setRemoteAdapter(0, R.id.widget_list,new Intent(context, EventsWidgetService.class));
+		views.setRemoteAdapter(0, R.id.widget_list, new Intent(context, EventsWidgetService.class));
 	}
-	}
+}

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import android.view.View;
+
 import com.dilpreet2028.devents.R;
 import com.dilpreet2028.devents.Utils.Utility;
 
@@ -23,11 +24,12 @@ public class ClipBoardMonitorService extends Service {
 
 	private ClipboardManager clipboardManager;
 	private MyClipManager myClipManager;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		myClipManager=new MyClipManager();
-		clipboardManager=(ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+		myClipManager = new MyClipManager();
+		clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 		clipboardManager.addPrimaryClipChangedListener(myClipManager);
 	}
 
@@ -37,14 +39,14 @@ public class ClipBoardMonitorService extends Service {
 		super.onDestroy();
 	}
 
-	private class MyClipManager implements ClipboardManager.OnPrimaryClipChangedListener{
+	private class MyClipManager implements ClipboardManager.OnPrimaryClipChangedListener {
 		@Override
 		public void onPrimaryClipChanged() {
-			ClipData clipData=clipboardManager.getPrimaryClip();
-			String link=clipData.getItemAt(0).getText().toString();
+			ClipData clipData = clipboardManager.getPrimaryClip();
+			String link = clipData.getItemAt(0).getText().toString();
 			Utility.logger(link);
-			if(Utility.containsFBUrl(link)) {
-				String eventId=Utility.getEventId(link);
+			if (Utility.containsFBUrl(link)) {
+				String eventId = Utility.getEventId(link);
 
 				Intent intent = new Intent(getApplicationContext(), CreateEventService.class);
 				intent.putExtra(getString(R.string.event), eventId);
@@ -52,8 +54,6 @@ public class ClipBoardMonitorService extends Service {
 			}
 			Utility.logger("out");
 		}
-
-
 
 
 	}

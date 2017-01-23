@@ -33,33 +33,34 @@ import retrofit2.http.Path;
  */
 
 public class FacebookApi {
-	public interface GraphApi{
+	public interface GraphApi {
 
 		@GET("v2.8/{event_id}?" +
 				"fields=cover,interested_count,attending_count,description,name,place&access_token="
-				+ BuildConfig.FB_APP_ID+"|"+ BuildConfig.FB_APP_SECRET)
+				+ BuildConfig.FB_APP_ID + "|" + BuildConfig.FB_APP_SECRET)
 		public Call<Event> fetchEvent(@Path("event_id") String eventId);
 
-		public interface CallBack{
+		public interface CallBack {
 			public void onSuccess(Event event);
+
 			public void onError();
 		}
 	}
 
-	public static void fetchInfo(final Context context,final String eventId, final GraphApi.CallBack callBack){
+	public static void fetchInfo(final Context context, final String eventId, final GraphApi.CallBack callBack) {
 
-		Retrofit retrofit=new Retrofit.Builder()
+		Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl("https://graph.facebook.com/")
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
-		FacebookApi.GraphApi graphApi=retrofit.create(FacebookApi.GraphApi.class);
-		Call<Event> call=graphApi.fetchEvent(eventId);
+		FacebookApi.GraphApi graphApi = retrofit.create(FacebookApi.GraphApi.class);
+		Call<Event> call = graphApi.fetchEvent(eventId);
 		call.enqueue(new Callback<Event>() {
 			@Override
 			public void onResponse(Call<Event> call, Response<Event> response) {
-				Event event=response.body();
-				Utility.logger(event.getPlace().getLocation().getLatitude()+"  latitude");
-				appendData(event,context);
+				Event event = response.body();
+				Utility.logger(event.getPlace().getLocation().getLatitude() + "  latitude");
+				appendData(event, context);
 				callBack.onSuccess(event);
 
 			}
@@ -72,81 +73,79 @@ public class FacebookApi {
 	}
 
 
+	private static void appendData(final Event event, final Context context) {
 
-	private static void appendData(final Event event,final Context context){
+		final String lati = event.getPlace().getLocation().getLatitude() + "";
+		final String longi = event.getPlace().getLocation().getLongitude() + "";
 
-		final String lati=event.getPlace().getLocation().getLatitude()+"";
-		final String longi=event.getPlace().getLocation().getLongitude()+"";
-
-		ILocation iLocation=new LocationImpl(new ILocation.Callback() {
+		ILocation iLocation = new LocationImpl(new ILocation.Callback() {
 			@Override
 			public void fetchDistance(int distance) {
-				if(distance< Utility.MAX_DISTANCE){
+				if (distance < Utility.MAX_DISTANCE) {
 
-					addEvent(event,context);
-				}
-				else {
+					addEvent(event, context);
+				} else {
 					Utility.logger("out of coverage area :p");
 				}
 			}
 
 			@Override
 			public void onError(String msg) {
-				Utility.logger("ilocation "+msg);
-				addEvent(event,context);
+				Utility.logger("ilocation " + msg);
+				addEvent(event, context);
 
 			}
 		});
 
-		Utility.logger(lati+" "+longi);
-		iLocation.calculate(lati+","+longi,context);
+		Utility.logger(lati + " " + longi);
+		iLocation.calculate(lati + "," + longi, context);
 
 	}
 
-	private static void addEvent(Event event,Context context){
-		ContentValues contentValue=new ContentValues();
-		contentValue.put(DataContract.EventsItem.COLUMN_NAME,event.getName());
-		contentValue.put(DataContract.EventsItem.COLUMN_E_ID,event.getId());
-		contentValue.put(DataContract.EventsItem.COLUMN_DESC,event.getDescription());
-		contentValue.put(DataContract.EventsItem.COLUMN_PIC,event.getCover().getSource());
-		contentValue.put(DataContract.EventsItem.COLUMN_INTERESTED,event.getInterestedCount());
-		contentValue.put(DataContract.EventsItem.COLUMN_GOING,event.getAttendingCount());
-		contentValue.put(DataContract.EventsItem.COLUMN_PLACE_NAME,event.getPlace().getName());
-		contentValue.put(DataContract.EventsItem.COLUMN_CITY,event.getPlace().getLocation().getCity());
-		contentValue.put(DataContract.EventsItem.COLUMN_LAT,event.getPlace().getLocation().getLatitude());
-		contentValue.put(DataContract.EventsItem.COLUMN_LONG,event.getPlace().getLocation().getLongitude());
-		contentValue.put(DataContract.EventsItem.COLUMN_STREET,event.getPlace().getLocation().getStreet());
+	private static void addEvent(Event event, Context context) {
+		ContentValues contentValue = new ContentValues();
+		contentValue.put(DataContract.EventsItem.COLUMN_NAME, event.getName());
+		contentValue.put(DataContract.EventsItem.COLUMN_E_ID, event.getId());
+		contentValue.put(DataContract.EventsItem.COLUMN_DESC, event.getDescription());
+		contentValue.put(DataContract.EventsItem.COLUMN_PIC, event.getCover().getSource());
+		contentValue.put(DataContract.EventsItem.COLUMN_INTERESTED, event.getInterestedCount());
+		contentValue.put(DataContract.EventsItem.COLUMN_GOING, event.getAttendingCount());
+		contentValue.put(DataContract.EventsItem.COLUMN_PLACE_NAME, event.getPlace().getName());
+		contentValue.put(DataContract.EventsItem.COLUMN_CITY, event.getPlace().getLocation().getCity());
+		contentValue.put(DataContract.EventsItem.COLUMN_LAT, event.getPlace().getLocation().getLatitude());
+		contentValue.put(DataContract.EventsItem.COLUMN_LONG, event.getPlace().getLocation().getLongitude());
+		contentValue.put(DataContract.EventsItem.COLUMN_STREET, event.getPlace().getLocation().getStreet());
 
-		context.getContentResolver().insert(DataContract.EventsItem.CONTENT_URI,contentValue);
+		context.getContentResolver().insert(DataContract.EventsItem.CONTENT_URI, contentValue);
 
 		Utility.logger("addedddd");
 
-		Log.d("mytag","updated widget");
-		Intent updatedDataIntent=new Intent(Utility.ACTION_DATA_UPDATED);
+		Log.d("mytag", "updated widget");
+		Intent updatedDataIntent = new Intent(Utility.ACTION_DATA_UPDATED);
 		updatedDataIntent.setPackage(context.getPackageName());
 		context.sendBroadcast(updatedDataIntent);
 
-		notifyUser(context,event.getName(),event.getId());
+		notifyUser(context, event.getName(), event.getId());
 
 	}
 
 
-	private static void notifyUser(Context context,String eventTitle,String eventId){
+	private static void notifyUser(Context context, String eventTitle, String eventId) {
 
-		Intent intent=new Intent(context, MainActivity.class);
+		Intent intent = new Intent(context, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		PendingIntent pi=PendingIntent.getActivity(context,0,intent,0);
+		PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
 
 
-		NotificationManager manager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		NotificationCompat.Builder builder=new NotificationCompat.Builder(context)
-								.setSmallIcon(R.mipmap.ic_launcher)
-								.setContentTitle(context.getString(R.string.new_event))
-								.setContentIntent(pi)
-								.setContentText(eventTitle)
-								.setDefaults(Notification.DEFAULT_ALL);
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+				.setSmallIcon(R.mipmap.ic_launcher)
+				.setContentTitle(context.getString(R.string.new_event))
+				.setContentIntent(pi)
+				.setContentText(eventTitle)
+				.setDefaults(Notification.DEFAULT_ALL);
 
-		manager.notify(12,builder.build());
+		manager.notify(12, builder.build());
 	}
 }

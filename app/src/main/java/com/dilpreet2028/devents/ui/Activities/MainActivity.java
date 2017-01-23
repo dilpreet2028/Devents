@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 	public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
 	public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
 			UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-	private final int REQUEST_CHECK_SETTINGS=12;
+	private final int REQUEST_CHECK_SETTINGS = 12;
 	private ViewPagerAdapter viewPagerAdapter;
-	private final int LOCATION_CODE=12;
+	private final int LOCATION_CODE = 12;
 	private GoogleApiClient googleApiClient;
 	private SharedPreferences sharedPreferences;
 
@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 		ButterKnife.bind(this);
 
 		FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.firebase_subcribe_topic));
-		viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
+		viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(viewPagerAdapter);
-		viewPager.setPageTransformer(false,new ViewPagerTransformer());
+		viewPager.setPageTransformer(false, new ViewPagerTransformer());
 		viewPager.setPageMargin(30);
 
 		tabLayout.setupWithViewPager(viewPager);
 
-		sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		startService(new Intent(this, ClipBoardMonitorService.class));
 
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 		initGoogleApi();
 	}
 
-	private void initGoogleApi(){
-		googleApiClient=new GoogleApiClient.Builder(getApplicationContext())
+	private void initGoogleApi() {
+		googleApiClient = new GoogleApiClient.Builder(getApplicationContext())
 				.enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
 					@Override
 					public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -95,8 +95,7 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 					@Override
 					public void onConnected(@Nullable Bundle bundle) {
 
-							if(fetchLatLong()==-1);
-						{
+						if (fetchLatLong() == -1) {
 							getLocationDetails();
 							Utility.logger("adffd asas");
 						}
@@ -129,20 +128,19 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 	}
 
 
-	private void setAlarmForService(){
-		Intent intent=new Intent(getApplicationContext(), NewsBroadCastReciever.class);
+	private void setAlarmForService() {
+		Intent intent = new Intent(getApplicationContext(), NewsBroadCastReciever.class);
 
-		PendingIntent pi=PendingIntent.getBroadcast(getApplicationContext(),0,intent,0);
+		PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
 
-		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60*60, 18000000,pi);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000 * 60 * 60, 18000000, pi);
 	}
 
 	//starter
 	public void getLocationDetails() {
 
-		if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
-		{
+		if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
 			createRequest();
 
@@ -155,17 +153,16 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 			result.setResultCallback(this);
 
 			Utility.logger("in here");
-		}
-		else
-			ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_CODE);
+		} else
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_CODE);
 
 	}
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		if(requestCode==LOCATION_CODE){
-			if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+		if (requestCode == LOCATION_CODE) {
+			if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				Utility.logger("granted");
 				getLocationDetails();
 			}
@@ -175,9 +172,9 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 
 	@Override
 	public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
-		Status status=locationSettingsResult.getStatus();
+		Status status = locationSettingsResult.getStatus();
 
-		switch (status.getStatusCode()){
+		switch (status.getStatusCode()) {
 			case LocationSettingsStatusCodes.SUCCESS:
 				Utility.logger("success");
 				fetchLatLong();
@@ -188,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 					status.startResolutionForResult(MainActivity.this,
 							REQUEST_CHECK_SETTINGS);
 					Utility.logger("ssdds");
-				}catch (IntentSender.SendIntentException e){
+				} catch (IntentSender.SendIntentException e) {
 
 				}
 				break;
@@ -198,37 +195,36 @@ public class MainActivity extends AppCompatActivity implements ResultCallback<Lo
 		}
 	}
 
-	private int fetchLatLong(){
+	private int fetchLatLong() {
 
 		try {
 
 
 			location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
-			if (location==null)
-			{
+			if (location == null) {
 				Utility.logger("returning null");
 				return -1;
 			}
-			Utility.logger(location.getLongitude()+"  ");
+			Utility.logger(location.getLongitude() + "  ");
 
-			sharedPreferences.edit().putString(getString(R.string.pref_lat),location.getLatitude()+"").apply();
-			sharedPreferences.edit().putString(getString(R.string.pref_long),location.getLongitude()+"").apply();
+			sharedPreferences.edit().putString(getString(R.string.pref_lat), location.getLatitude() + "").apply();
+			sharedPreferences.edit().putString(getString(R.string.pref_long), location.getLongitude() + "").apply();
 
-			if(!sharedPreferences.contains(getString(R.string.pref_init_event)))
-			{
+			if (!sharedPreferences.contains(getString(R.string.pref_init_event))) {
 				EventsApi.initEvents(getApplicationContext());
-				sharedPreferences.edit().putBoolean(getString(R.string.pref_init_event),true).apply();
+				sharedPreferences.edit().putBoolean(getString(R.string.pref_init_event), true).apply();
 			}
 
 
-		}catch (SecurityException e){}
+		} catch (SecurityException e) {
+		}
 
 		return 10;
 	}
 
-	private void createRequest(){
-		locationRequest=new LocationRequest();
+	private void createRequest() {
+		locationRequest = new LocationRequest();
 		locationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
 		locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
 

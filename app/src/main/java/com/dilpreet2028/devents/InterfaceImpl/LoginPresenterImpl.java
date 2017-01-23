@@ -13,24 +13,25 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
  * Created by dilpreet on 12/1/17.
  */
 
-public class LoginPresenterImpl implements LoginPresenter,LoginInteractor.OnLoginFinished {
+public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinished {
 
 	private LoginView loginView;
 	private LoginInteractor loginInteractor;
+
 	public LoginPresenterImpl(LoginView loginView) {
-		this.loginView=loginView;
-		loginInteractor=new LoginInteractorImpl();
+		this.loginView = loginView;
+		loginInteractor = new LoginInteractorImpl();
 	}
 
 	@Override
 	public void processGoogleSignInData(GoogleSignInResult result) {
 		if (result.isSuccess()) {
 
-			GoogleSignInAccount account=result.getSignInAccount();
-			String email=account.getEmail();
-			String name=account.getDisplayName();
+			GoogleSignInAccount account = result.getSignInAccount();
+			String email = account.getEmail();
+			String name = account.getDisplayName();
 //		Utility.logger(email);
-			loginInteractor.login(name,email,this);
+			loginInteractor.login(name, email, this);
 		}
 	}
 

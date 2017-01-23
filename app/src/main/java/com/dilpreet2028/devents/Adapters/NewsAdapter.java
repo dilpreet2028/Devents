@@ -20,28 +20,29 @@ import butterknife.ButterKnife;
  * Created by dilpreet on 7/1/17.
  */
 
-public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolder>{
+public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolder> {
 
 
 	private Context context;
 	private Callback callback;
-	public NewsAdapter(Context context, Cursor cursor,Callback callback) {
+
+	public NewsAdapter(Context context, Cursor cursor, Callback callback) {
 		super(context, cursor);
-		this.callback=callback;
-		this.context=context;
+		this.callback = callback;
+		this.context = context;
 	}
 
 	@Override
 	public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View itemView= LayoutInflater.from(parent.getContext())
-						.inflate(R.layout.news_item,parent,false);
+		View itemView = LayoutInflater.from(parent.getContext())
+				.inflate(R.layout.news_item, parent, false);
 		return new NewsViewHolder(itemView);
 	}
 
 	@Override
 	public void onBindViewHolder(NewsViewHolder viewHolder, Cursor cursor) {
-		String imageUrl=cursor.getString(cursor.getColumnIndex(DataContract.NewsItems.COLUMN_URL_IMG));
-		String title=cursor.getString(cursor.getColumnIndex(DataContract.NewsItems.COLUMN_TITLE));
+		String imageUrl = cursor.getString(cursor.getColumnIndex(DataContract.NewsItems.COLUMN_URL_IMG));
+		String title = cursor.getString(cursor.getColumnIndex(DataContract.NewsItems.COLUMN_TITLE));
 
 		viewHolder.titleTextView.setText(title);
 		viewHolder.titleTextView.setContentDescription(title);
@@ -54,14 +55,16 @@ public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolde
 
 	}
 
-	public class NewsViewHolder extends RecyclerView.ViewHolder{
+	public class NewsViewHolder extends RecyclerView.ViewHolder {
 
-		@BindView(R.id.news_item_image) ImageView imageView;
-		@BindView(R.id.news_item_title) TextView titleTextView;
+		@BindView(R.id.news_item_image)
+		ImageView imageView;
+		@BindView(R.id.news_item_title)
+		TextView titleTextView;
 
 		public NewsViewHolder(View itemView) {
 			super(itemView);
-			ButterKnife.bind(this,itemView);
+			ButterKnife.bind(this, itemView);
 
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -72,7 +75,7 @@ public class NewsAdapter extends CursorRecyclerAdapter<NewsAdapter.NewsViewHolde
 		}
 	}
 
-	public interface Callback{
+	public interface Callback {
 		public void onClick(int pos);
 	}
 }

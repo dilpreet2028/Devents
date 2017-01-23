@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 android {
+    signingConfigs {
+        config {
+            keyAlias 'dilpreet'
+            keyPassword 'dilpreet15'
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'dilpreet15'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
@@ -14,9 +22,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
-    buildTypes.each{
+    buildTypes.each {
         it.buildConfigField 'String','NEWS_API_URL','"https://newsapi.org/"'
         it.buildConfigField 'String','NEWS_API_KEY','"NEWS_API_KEY"'
         it.buildConfigField 'String','EVENT_API_URL','"https://devents.herokuapp.com/"'
@@ -27,8 +36,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
@@ -45,7 +53,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:10.0.1'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
-
     testCompile 'junit:junit:4.12'
 }
 

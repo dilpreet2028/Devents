@@ -8,8 +8,10 @@ import android.content.Context;
 
 public interface ILocation {
 	public void calculate(String locationName, Context context);
-	public interface Callback{
+
+	public interface Callback {
 		public void fetchDistance(int distance);
+
 		public void onError(String msg);
 	}
 }

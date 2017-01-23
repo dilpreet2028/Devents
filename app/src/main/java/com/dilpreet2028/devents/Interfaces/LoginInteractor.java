@@ -6,10 +6,11 @@ package com.dilpreet2028.devents.Interfaces;
 
 public interface LoginInteractor {
 
-	public void login(String name,String email,OnLoginFinished onLoginFinished);
+	public void login(String name, String email, OnLoginFinished onLoginFinished);
 
-	public interface OnLoginFinished{
+	public interface OnLoginFinished {
 		public void onSuccess(String email);
+
 		public void onError(String msg);
 	}
 }

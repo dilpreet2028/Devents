@@ -22,13 +22,13 @@ public class LoginInteractorImpl implements LoginInteractor {
 	public void login(String name, final String email, final OnLoginFinished onLoginFinished) {
 
 
-		Retrofit retrofit=new Retrofit.Builder()
-							.baseUrl(BuildConfig.EVENT_API_URL)
-							.addConverterFactory(GsonConverterFactory.create())
-							.build();
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(BuildConfig.EVENT_API_URL)
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
 		Utility.logger("sending request");
-		EventsApi.Api api=retrofit.create(EventsApi.Api.class);
-		Call<Void> call=api.login(name, email);
+		EventsApi.Api api = retrofit.create(EventsApi.Api.class);
+		Call<Void> call = api.login(name, email);
 		call.enqueue(new Callback<Void>() {
 			@Override
 			public void onResponse(Call<Void> call, Response<Void> response) {

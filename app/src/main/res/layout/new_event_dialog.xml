@@ -9,13 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dialog_edittext"
-        android:hint="Enter facebook event url"/>
+        android:hint="@string/facebook_enter_url"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Share Event"
+        android:text="@string/share_event"
         android:id="@+id/dialog_button"
 
         />

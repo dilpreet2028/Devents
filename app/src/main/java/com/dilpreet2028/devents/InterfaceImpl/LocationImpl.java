@@ -25,31 +25,33 @@ import retrofit2.Retrofit;
 
 public class LocationImpl implements ILocation {
 	private ILocation.Callback callback;
+
 	public LocationImpl(ILocation.Callback callback) {
-		this.callback=callback;
+		this.callback = callback;
 	}
 
 	@Override
 	public void calculate(String locationName, Context context) {
 
-		Retrofit retrofit=new Retrofit.Builder()
+		Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl("http://maps.googleapis.com/")
 				.build();
 
-		SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
-		LocationApi.Api api=retrofit.create(LocationApi.Api.class);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		LocationApi.Api api = retrofit.create(LocationApi.Api.class);
 
-		Call<ResponseBody> call=api.getDistance(sharedPreferences.getString(context.getString(R.string.pref_lat),null)+","+
-				sharedPreferences.getString(context.getString(R.string.pref_long),null),locationName,"false");
+		Call<ResponseBody> call = api.getDistance(sharedPreferences.getString(context.getString(R.string.pref_lat), null) + "," +
+				sharedPreferences.getString(context.getString(R.string.pref_long), null), locationName, "false");
 		Utility.logger("asklajslask");
 		call.enqueue(new retrofit2.Callback<ResponseBody>() {
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-				try{String msg=response.body().string();
+				try {
+					String msg = response.body().string();
 					fetchDistance(msg);
 
-				}catch (Exception e){
-					callback.onError("LocationRetrofit: "+e.toString());
+				} catch (Exception e) {
+					callback.onError("LocationRetrofit: " + e.toString());
 				}
 			}
 
@@ -61,7 +63,7 @@ public class LocationImpl implements ILocation {
 	}
 
 
-	private void fetchDistance(String data){
+	private void fetchDistance(String data) {
 		try {
 			final JSONObject json = new JSONObject(data);
 			Utility.logger(data);
@@ -73,11 +75,11 @@ public class LocationImpl implements ILocation {
 
 			JSONObject distOb = newDisTimeOb.getJSONObject("distance");
 
-			callback.fetchDistance(Integer.parseInt(distOb.getString("value"))/1000);
+			callback.fetchDistance(Integer.parseInt(distOb.getString("value")) / 1000);
 
-		}catch (JSONException e){
-			Utility.logger("Error: "+e.toString());
-			callback.onError("Error: "+e.toString());
+		} catch (JSONException e) {
+			Utility.logger("Error: " + e.toString());
+			callback.onError("Error: " + e.toString());
 		}
 	}
 }

@@ -6,5 +6,6 @@ package com.dilpreet2028.devents.Interfaces;
 
 public interface LoginView {
 	public void onSucess(String email);
+
 	public void onError(String msg);
 }

@@ -14,13 +14,13 @@ public class MyScrollView extends ScrollView {
 
 	public MyScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		callback=null;
+		callback = null;
 	}
 
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		super.onScrollChanged(l, t, oldl, oldt);
-		if(callback==null)
+		if (callback == null)
 			throw new NullPointerException("Scrollview Callback not implemented");
 		callback.onScroll();
 
@@ -30,7 +30,7 @@ public class MyScrollView extends ScrollView {
 		this.callback = callback;
 	}
 
-	public interface Callback{
+	public interface Callback {
 		public void onScroll();
 	}
 }

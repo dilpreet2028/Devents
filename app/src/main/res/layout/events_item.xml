@@ -12,7 +12,7 @@
     android:foreground="?android:selectableItemBackground">
 
 
-        <ImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
@@ -24,6 +24,7 @@
         android:orientation="vertical"
         android:background="@drawable/scrim_black"
         android:layout_gravity="bottom">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
             android:textColor="@android:color/white"
             android:id="@+id/events_item_title"
             android:textAppearance="?android:textAppearanceMedium"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

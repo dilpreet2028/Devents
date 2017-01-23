@@ -39,14 +39,12 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,LoginView{
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginView {
 	private GoogleApiClient googleApiClient;
 	private SignInButton signInButton;
-	private final int SIGN_IN_CODE=1290;
+	private final int SIGN_IN_CODE = 1290;
 	private LoginPresenter loginPresenter;
 	private SharedPreferences sharedPreferences;
-
-
 
 
 	@Override
@@ -54,55 +52,52 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		sharedPreferences= PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
 
-		if(alreadyRegistered())
-		{
+		if (alreadyRegistered()) {
 			proceedToNext();
 			return;
 		}
 
 
-		NewsApi newsApi=new NewsApi(getApplicationContext());
+		NewsApi newsApi = new NewsApi(getApplicationContext());
 		newsApi.getNews();
 
 
-		GoogleSignInOptions gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 				.requestEmail()
 				.build();
 
-		googleApiClient=new GoogleApiClient.Builder(this)
-				.enableAutoManage(this,this)
-				.addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+		googleApiClient = new GoogleApiClient.Builder(this)
+				.enableAutoManage(this, this)
+				.addApi(Auth.GOOGLE_SIGN_IN_API, gso)
 				.addApi(LocationServices.API)
 				.build();
 
-		signInButton=(SignInButton)findViewById(R.id.sign_in_button);
+		signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 		signInButton.setSize(SignInButton.SIZE_WIDE);
 
 		signInButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 
-				Intent intent=Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-				startActivityForResult(intent,SIGN_IN_CODE);
+				Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+				startActivityForResult(intent, SIGN_IN_CODE);
 
 			}
 		});
 
-		loginPresenter=new LoginPresenterImpl(this);
-
+		loginPresenter = new LoginPresenterImpl(this);
 
 
 	}
 
 
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode==SIGN_IN_CODE){
-			GoogleSignInResult result=Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+		if (requestCode == SIGN_IN_CODE) {
+			GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 			loginPresenter.processGoogleSignInData(result);
 		}
 
@@ -110,17 +105,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 	}
 
 
-
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-		Utility.logger("connection failed: "+connectionResult.getErrorMessage());
+		Utility.logger("connection failed: " + connectionResult.getErrorMessage());
 	}
 
 	@Override
 	public void onSucess(String email) {
 		//start intent
 
-		sharedPreferences.edit().putString(getString(R.string.pref_email),email).apply();
+		sharedPreferences.edit().putString(getString(R.string.pref_email), email).apply();
 		proceedToNext();
 	}
 
@@ -129,12 +123,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 		Utility.logger(msg);
 	}
 
-	private boolean alreadyRegistered(){
+	private boolean alreadyRegistered() {
 		return sharedPreferences.contains(getString(R.string.pref_email));
 	}
 
-	private void proceedToNext(){
-		startActivity(new Intent(LoginActivity.this,MainActivity.class));
+	private void proceedToNext() {
+		startActivity(new Intent(LoginActivity.this, MainActivity.class));
 		finish();
 	}
 

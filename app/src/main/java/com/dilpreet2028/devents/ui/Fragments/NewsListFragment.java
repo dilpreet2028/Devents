@@ -29,23 +29,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class NewsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class NewsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
 	@BindView(R.id.news_recycler_view)
 	RecyclerView newsRecyclerView;
 
 	private NewsAdapter newsAdapter;
-	private int NEWS_LOADER=12;
+	private int NEWS_LOADER = 12;
 	private Cursor mCursor;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		View view=inflater.inflate(R.layout.fragment_news_list, container, false);
+		View view = inflater.inflate(R.layout.fragment_news_list, container, false);
 
 
-		ButterKnife.bind(this,view);
+		ButterKnife.bind(this, view);
 		return view;
 	}
 
@@ -54,11 +54,11 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 		super.onViewCreated(view, savedInstanceState);
 
 		newsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-		newsAdapter=new NewsAdapter(getContext(), null, new NewsAdapter.Callback() {
+		newsAdapter = new NewsAdapter(getContext(), null, new NewsAdapter.Callback() {
 			@Override
 			public void onClick(int pos) {
 				mCursor.moveToPosition(pos);
-				String url=mCursor.getString(mCursor.getColumnIndex(DataContract.NewsItems.COLUMN_URL));
+				String url = mCursor.getString(mCursor.getColumnIndex(DataContract.NewsItems.COLUMN_URL));
 				Intent i = new Intent(Intent.ACTION_VIEW);
 				i.setData(Uri.parse(url));
 				startActivity(i);
@@ -66,10 +66,7 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 		});
 		newsRecyclerView.setAdapter(newsAdapter);
 
-		getLoaderManager().initLoader(NEWS_LOADER,null,this);
-
-
-
+		getLoaderManager().initLoader(NEWS_LOADER, null, this);
 
 
 	}
@@ -77,14 +74,14 @@ public class NewsListFragment extends Fragment implements LoaderManager.LoaderCa
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-		return new CursorLoader(getContext(), DataContract.NewsItems.CONTENT_URI,DataContract.NewsItems.PROJECTIONS,
-								null,null,null);
+		return new CursorLoader(getContext(), DataContract.NewsItems.CONTENT_URI, DataContract.NewsItems.PROJECTIONS,
+				null, null, null);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		newsAdapter.swapCursor(data);
-		mCursor=data;
+		mCursor = data;
 	}
 
 	@Override

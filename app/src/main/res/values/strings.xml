@@ -18,4 +18,9 @@
     <string name="new_event">New Event</string>
     <string name="gps_not_enabled">GPS is not enabled</string>
     <string name="firebase_subcribe_topic">events</string>
+    <string name="facebook_enter_url">Enter facebook event url</string>
+    <string name="share_event">Share Event</string>
+    <string name="going_str">Going</string>
+    <string name="interested_str">Interested</string>
+    <string name="attend_event">Attend Event</string>
 </resources>

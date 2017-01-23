@@ -32,24 +32,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EventsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class EventsListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
 	@BindView(R.id.events_recycler_view)
 	RecyclerView recyclerView;
-    @BindView(R.id.fab)
+	@BindView(R.id.fab)
 	FloatingActionButton fab;
 
 	private EventsAdapter eventsAdapter;
-	private final int EVENT_LOADER=1290;
+	private final int EVENT_LOADER = 1290;
 	private Cursor mCursor;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 
 
-		View view=inflater.inflate(R.layout.fragment_events_list, container, false);
-		ButterKnife.bind(this,view);
+		View view = inflater.inflate(R.layout.fragment_events_list, container, false);
+		ButterKnife.bind(this, view);
 		return view;
 	}
 
@@ -57,21 +58,21 @@ public class EventsListFragment extends Fragment implements LoaderManager.Loader
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-		mCursor=null;
-		eventsAdapter=new EventsAdapter(getContext(), null, new EventsAdapter.OnItemClickListener() {
+		mCursor = null;
+		eventsAdapter = new EventsAdapter(getContext(), null, new EventsAdapter.OnItemClickListener() {
 			@Override
 			public void onClick(int pos) {
-				Intent intent=new Intent(getContext(), EventInfoActivity.class);
+				Intent intent = new Intent(getContext(), EventInfoActivity.class);
 				mCursor.moveToPosition(pos);
-				String eventId=mCursor.getString(mCursor.getColumnIndex(DataContract.EventsItem.COLUMN_E_ID));
-				intent.putExtra(getString(R.string.event_id),eventId);
+				String eventId = mCursor.getString(mCursor.getColumnIndex(DataContract.EventsItem.COLUMN_E_ID));
+				intent.putExtra(getString(R.string.event_id), eventId);
 				getContext().startActivity(intent);
 			}
 		});
 
 		recyclerView.setAdapter(eventsAdapter);
 
-		getLoaderManager().initLoader(EVENT_LOADER,null,this);
+		getLoaderManager().initLoader(EVENT_LOADER, null, this);
 
 
 		fab.setOnClickListener(new View.OnClickListener() {
@@ -87,14 +88,14 @@ public class EventsListFragment extends Fragment implements LoaderManager.Loader
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		return new CursorLoader(getContext(), DataContract.EventsItem.CONTENT_URI,
-								DataContract.EventsItem.PROJECTIONS,null,null,null);
+				DataContract.EventsItem.PROJECTIONS, null, null, null);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		DatabaseUtils.dumpCursor(data);
 		eventsAdapter.swapCursor(data);
-		mCursor=data;
+		mCursor = data;
 	}
 
 	@Override
@@ -102,21 +103,21 @@ public class EventsListFragment extends Fragment implements LoaderManager.Loader
 
 	}
 
-	private void setupDialog(){
-		Dialog dialog=new Dialog(getContext());
+	private void setupDialog() {
+		Dialog dialog = new Dialog(getContext());
 		dialog.setContentView(R.layout.new_event_dialog);
-		dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+		dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 		dialog.show();
 
-		final EditText editText=(EditText)dialog.findViewById(R.id.dialog_edittext);
-		Button btn=(Button)dialog.findViewById(R.id.dialog_button);
+		final EditText editText = (EditText) dialog.findViewById(R.id.dialog_edittext);
+		Button btn = (Button) dialog.findViewById(R.id.dialog_button);
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String link=editText.getText().toString();
+				String link = editText.getText().toString();
 
-				if(Utility.containsFBUrl(link)) {
-					String eventId=Utility.getEventId(link);
+				if (Utility.containsFBUrl(link)) {
+					String eventId = Utility.getEventId(link);
 
 					Intent intent = new Intent(getContext(), CreateEventService.class);
 					intent.putExtra(getString(R.string.event), eventId);

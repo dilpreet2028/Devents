@@ -15,6 +15,6 @@ public class NewsBroadCastReciever extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		context.startService(new Intent(context,NewsIntentService.class));
+		context.startService(new Intent(context, NewsIntentService.class));
 	}
 }

@@ -18,11 +18,11 @@ public class MyBootReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		context.startService(new Intent(context, ClipBoardMonitorService.class));
 
-		Intent in=new Intent(context, NewsBroadCastReciever.class);
+		Intent in = new Intent(context, NewsBroadCastReciever.class);
 
-		PendingIntent pi=PendingIntent.getBroadcast(context,0,in,0);
-		AlarmManager alarmManager=(AlarmManager)context.getSystemService(ALARM_SERVICE);
-		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+1000*60, 18000000,pi);
+		PendingIntent pi = PendingIntent.getBroadcast(context, 0, in, 0);
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000 * 60, 18000000, pi);
 
 	}
 }

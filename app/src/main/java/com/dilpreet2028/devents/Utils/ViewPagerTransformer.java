@@ -12,7 +12,7 @@ import com.dilpreet2028.devents.R;
 public class ViewPagerTransformer implements ViewPager.PageTransformer {
 	@Override
 	public void transformPage(View page, float position) {
-		int height=page.getHeight();
+		int height = page.getHeight();
 
 //		if (position<-1)
 //		{
