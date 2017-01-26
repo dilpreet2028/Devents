@@ -8,7 +8,11 @@ and about all the events or workshops which will be happening near them.
 1. Register at <a href="https://newsapi.org/">Newsapi.org</a> and get API_KEY<br>
 2. Replace the <b>API_KEY</b> with <b>NEWS_API_KEY</b> in build.gradle file<br>
 3. Follow <a href="https://developers.facebook.com/docs/apps/register"><b>this</b></a> guide to create a Facebook app<br>
-4. Replace the <b>FB_API_ID</b> with <b>App ID</b> and <b>FB_APP_SECRET</b> with <b>App Secret</b> of your facebook app in build.gradle file.
+4. Replace the <b>FB_API_ID</b> with <b>App ID</b> and <b>FB_APP_SECRET</b> with <b>App Secret</b> of your facebook app in build.gradle file. 
+<br>
+5. Create an app at <a href="https://console.developers.google.com/">Google Developers Console</a> and enable Google Maps Android API,Google Places API for Android . <br>
+6.Goto <a href="https://console.firebase.google.com/">Firebase Console</a> , click on Import Google project and import it.<br>
+7.Goto Project Settings and Download google-services.json file and place it in app/ folder.
 
 
 <h2>App Screens</h2>
